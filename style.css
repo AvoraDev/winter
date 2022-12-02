@@ -1,0 +1,162 @@
+body {
+  margin: 0;
+  background: black;
+  font-family: Arial; 
+  font-family: 'Open Sans', sans-serif;
+  font-family: 'Source Code Pro', monospace;
+  /*overflow: hidden;*/
+}
+#diamond {
+  border: 0.5rem solid white;
+  opacity: 0;
+  
+  /*
+  first animation duration: 2s
+  second animation duration: 0.75s
+  total animation duration: 6.25s
+  */
+  animation-name: widen, double-out;
+  animation-duration: 1s, 0.75s;
+  animation-delay: 1s, 7s;
+  animation-timing-function: cubic-bezier(.28,.88,.38,.98), ease;
+  animation-fill-mode: forwards, forwards;
+}
+#blinkerHolder {
+  display: grid;
+  grid-template-columns: auto auto auto;
+}
+.blinker {
+  width: 5rem;
+  height: 5rem;
+  margin: 0.25rem;
+  border: 0.25rem solid white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  opacity: 0;
+  
+  /*
+  total animation duration: 4s
+  */
+  animation-name: blink, blink;
+  animation-duration: 1s, 1s;
+  animation-delay: 1s, 3s;
+  animation-timing-function: ease-out ease-in;
+  animation-fill-mode: forwards, forwards;
+  animation-direction: normal, reverse;
+}
+#terminal {
+  width: 10rem;
+  height: 10rem;
+  border: 0.25rem solid white;
+  padding: 1rem;
+  color: white;
+  background: black;
+  opacity: 0;
+  filter: blur(1px);
+  
+  /*
+  first animation duration: 1s
+  second animation duration: 1s
+  third animation duration: 3s
+  fourth animation duration: infinite
+  total animation duration: 2s to infinite
+  */
+  animation-name: blink, trm-focus, blur-in, flicker;
+  animation-duration: 1s, 1s, 3s, 4s;
+  animation-delay: 6s, 7s, 8.5s, 8.5s;
+  animation-timing-function: ease-out ease, ease-out, ease;
+  animation-fill-mode: forwards, forwards, forwards, forwards;
+  animation-iteration-count: 1, 1, 1, infinite;
+}
+#terminalDisp p {
+  margin: 0.5rem 0;
+}
+
+/*General classes*/
+.h-centered-div {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+.fullscreen-div {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.overlay-fullscreen-div {
+  position: fixed;
+  overflow: auto;
+  display: flex;
+  top: 0; right: 0; bottom: 0; left: 0;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+}
+
+/*Animations*/
+@keyframes blink {
+  0%    {opacity: 0;}
+  10%   {opacity: 1;}
+  20%   {opacity: 0;}
+  30%   {opacity: 1;}
+  40%   {opacity: 0;}
+  100%  {opacity: 1; color: white;}
+}
+@keyframes widen {
+  0%    {width: 0;     height: 0;     padding: 0;      opacity: 0;}
+  50%   {width: 20rem; height: 0;     padding: 0 5rem; opacity: 1;
+          transform: rotate(0);}
+  100%  {width: 20rem; height: 20rem; padding: 5rem;   opacity: 1;
+          transform: rotate(45deg);}
+}
+@keyframes double-out {
+  0%    {width: 20rem; height: 20rem; opacity: 1;}
+  99%   {width: 40rem; height: 40rem; opacity: 0;}
+  100%  {display: none; opacity: 0;}
+}
+@keyframes trm-focus {
+  0%    {width: 10rem; height: 10rem; box-shadow: none;}
+  100%  {width: 25rem; height: 20rem; box-shadow: 0 0 1rem 0.25rem white;} 
+}
+@keyframes blur-in {
+  0%    {filter: blur(0.06rem);}
+  100%  {filter: none;}
+}
+@keyframes flicker {
+  0%    {box-shadow: 0 0 1rem    0.25rem white;}
+  30%   {box-shadow: 0 0 0.5rem  0.25rem white;}
+  40%   {box-shadow: 0 0 1rem    0.25rem white;}
+  60%   {box-shadow: 0 0 0.75rem 0.25rem white;}
+  80%   {box-shadow: 0 0 1rem    0.25rem white;}
+  90%   {box-shadow: 0 0 0.75rem 0.25rem white;}
+  100%  {box-shadow: 0 0 1rem    0.25rem white;}
+}
+/*unused*/
+@keyframes fade-in {
+  0%    {opacity: 0;}
+  100%  {opacity: 1;}
+}
+@keyframes fade-out {
+  0%    {opacity: 1;}
+  100%  {opacity: 0;}
+}
+@keyframes spin {
+  0%    {transform: rotate(0deg);}
+  100%  {transform: rotate(360deg);}
+}
+@keyframes spin-45deg-start {
+  0%    {transform: rotate(45deg);}
+  100%  {transform: rotate(405deg);}
+}
+@keyframes fun {
+  0%    {box-shadow: inset 2rem  0     7rem rgb(0,255,255)}
+  25%   {box-shadow: inset 0     2rem  7rem rgb(255, 0, 255)}
+  50%   {box-shadow: inset -2rem 0     7rem rgb(0,255,255)}
+  75%   {box-shadow: inset 0     -2rem 7rem rgb(255, 0, 255)}
+  100%  {box-shadow: inset 2rem  0     7rem rgb(0,255,255)}
+}
